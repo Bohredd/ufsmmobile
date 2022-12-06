@@ -1,0 +1,322 @@
+ScreenManager:
+    TelaInicio:
+    TelaPesquisa:
+    MostrandoPredio:
+
+<TelaInicio>:
+    name: "inicio"
+    MDFloatLayout:
+        md_bg_color: 188/255,227/255,217/255,1
+        Image:
+            source: "ufsm logo.png"
+            size_hint: .50, .50
+            pos_hint: {"center_x": .5, "center_y": .65}
+            canvas.before:
+                Color:
+                    rgb: 1, .85, .825, 1
+        
+        MDIconButton:
+            icon: "chevron-right"
+            user_font_size: "70sp"
+            pos_hint: {"center_x": .5, "center_y": .2}      
+            on_press: app.root.current = 'home'   
+                    
+
+        MDLabel:
+            text: "UFSM Virtual"   
+            pos_hint: {"center_x": .5, "center_y": .4}       
+            halign: "center"
+            theme_text_color: "Primary"
+            text_color: 0, 0, 0
+            font_size:"35sp"
+            font_name: "Poppins-SemiBold.ttf"
+
+        MDLabel:
+            text: "O Campus na palma da sua mão!"   
+            pos_hint: {"center_x": .5, "center_y": .3}       
+            halign: "center"
+            theme_text_color: "Primary"
+            text_color: 0, 0, 0 
+            font_size:"13sp"
+            font_name: "Poppins-Regular.ttf"
+
+<TelaPesquisa>:
+    name: "home"
+    MDFloatLayout:
+        md_bg_color: 188/255,227/255,217/255,1
+        MDBottomNavigation:
+            panel_color: 64/255,224/255,208/255,1
+            selected_color_background: "orange"
+            text_color_active: "lightgrey"
+
+            MDBottomNavigationItem:
+                name: 'tela_pesquisa'
+                text: 'Procurar'
+                icon: 'magnify'
+                MDFloatLayout:
+                    md_bg_color: 188/255,227/255,217/255,1
+                    MDLabel:
+                        md_bg_color: 188/255,227/255,217/255,1
+                        text: "Procurar prédio"
+                        halign: 'center'
+                        font_size: "27sp"
+                        font_name: "Poppins-SemiBold.ttf"
+                        pos_hint: {"center_x": .5, "center_y": .86}
+                    MDLabel:
+                        text: " "
+                        halign:"center"
+                        font_size: "14.5sp"
+                        font_name: "Poppins-SemiBold.ttf"
+                        pos_hint: {"center_x": .5, "center_y": .055}
+                        id: lblogin       
+       
+                    MDFloatLayout:
+                        size_hint: .79, .08
+                        pos_hint: {"center_x":.5,"center_y":.65}
+                        MDLabel:
+                            text:"Digite o número do prédio ou o nome convencional:"
+                            halign: "center"
+                            font_size: "11sp"
+                            font_name: "Poppins-Medium.ttf"
+                            color: 120/255, 120/255, 120/255, 1
+                            pos_hint: {"center_x": .5, "center_y": .95}
+                        TextInput:
+                            id: nome_predio
+                            size_hint_y: .9
+                            font_name: "Poppins-Regular.ttf"
+                            font_size: "9sp"
+                            pos_hint: {"center_x":.5,"center_y":.4} 
+                            background_color: 0, 0, 0, 0    
+                            cursor_color: 0, 0, 0, 1
+                            cursor_width: "2sp"
+                            foreground_color: 120/255, 120/255, 120/255, 1
+                            font_size: "17sp"
+                            multiline: False
+                        MDFloatLayout:
+                            pos_hint: {"center_x": .5, "center_y": .1}
+                            size_hint_y: .03    
+                            md_bg_color: 120/255, 120/255, 120/255, 1
+                    MDFloatLayout:
+                        size_hint:.79, .08
+                        pos_hint: {"center_x":.5,"center_y":.45}
+                        MDLabel:
+                            text: "Ver mapa"
+                            font_size: "15sp"
+                            font_name: "Poppins-Regular.ttf"
+                            pos_hint: {"center_x":.8,"center_y":.9}
+                        MDCheckbox:
+                            size_hint: None, None
+                            size: "30dp", "30dp"
+                            disabled_color: "red"
+                            color_inactive: "lightgrey"
+                            color_active: "blue"
+                            pos_hint: {"center_x":.7,"center_y":1}
+                            on_active: root.checkbox_click_mapa(self,self.active)
+                        MDLabel:
+                            text: "Ver foto"
+                            font_size: "15sp"
+                            font_name: "Poppins-Regular.ttf"
+                            pos_hint: {"center_x":.8,"center_y":.5}
+                        MDCheckbox:
+                            size_hint: None, None
+                            size: "30dp", "30dp"
+                            disabled_color: "red"
+                            color_inactive: "lightgrey"
+                            color_active: "blue"
+                            pos_hint: {"center_x":.7,"center_y":.5}
+                            on_active: root.checkbox_click_foto(self,self.active)
+                        MDLabel:
+                            text: "Ver caminho"
+                            font_size: "15sp"
+                            font_name: "Poppins-Regular.ttf"
+                            pos_hint: {"center_x":.8,"center_y":.1}
+                        MDCheckbox:
+                            size_hint: None, None
+                            size: "30dp", "30dp"
+                            disabled_color: "red"
+                            color_inactive: "lightgrey"
+                            color_active: "blue"
+                            pos_hint: {"center_x":.7,"center_y":.0}
+                            on_active: root.checkbox_click_caminho(self,self.active)
+                    MDFloatLayout:
+                        pos_hint: {"center_x": .5, "center_y": .1}
+                        size_hint_y: .03    
+                        md_bg_color: 188/255,227/255,217/255,1
+                        MDIconButton:
+                            icon: "magnify"
+                            md_bg_color: app.theme_cls.primary_color
+                            pos_hint: {"center_x":.5,"center_y":0.9}
+                            on_press: root.testar_nome_predio()
+
+            MDBottomNavigationItem:
+                name: 'tela_mapa_3d'
+                text: 'Mapa 3D'
+                icon: 'video-3d'
+                MDFloatLayout:
+                    md_bg_color: 188/255,227/255,217/255,1
+                    MDLabel:
+                    
+                        md_bg_color: 188/255,227/255,217/255,1
+                        text: 'Mapa do Campus'
+                        halign: 'center'
+                        font_size: "20sp"
+                        font_name: "Poppins-SemiBold.ttf"
+                        pos_hint: {"center_x": .5, "center_y":.85}
+
+                    MDSmartTile:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        box_color: 0, 1, 0, .5
+                        source: "mapa ufsm.jpg"
+                        pos_hint: {"center_x": .5, "center_y": .45}
+                        size_hint: None, None
+                        size: "320dp", "320dp"
+
+                        MDIconButton:
+                            icon: "heart-outline"
+                            theme_icon_color: "Custom"
+                            icon_color: 1, 0, 0, 1
+                            pos_hint: {"center_y": .5}
+                            on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"
+
+                        MDLabel:
+                            text: "I love UFSM"
+                            bold: True
+                            color: 1, 1, 1, 1
+
+            MDBottomNavigationItem:
+                name: 'tela_mapa_padrao'
+                text: 'Mapa Padrão'
+                icon: 'google-maps'
+                MDFloatLayout:
+                    md_bg_color: 188/255,227/255,217/255,1
+                    MDLabel:
+                        md_bg_color: 188/255,227/255,217/255,1
+                        text: 'Mapa do Campus Padronizado'
+                        halign: 'center'
+                        font_size: "20sp"
+                        font_name: "Poppins-SemiBold.ttf"
+                        pos_hint: {"center_x": .5, "center_y":.85}
+
+                    Image:
+                        radius: 24
+                        box_radius: [0, 0, 24, 24]
+                        source: "mapa ufsm 2.jpg"
+                        pos_hint: {"center_x": .5, "center_y": .45}
+                        size_hint: None, None
+                        size: "320dp", "320dp"
+
+            MDBottomNavigationItem:
+                name: 'tela_tips'
+                text: 'Ajuda'
+                icon: 'account-question'
+
+                MDFloatLayout:
+                    md_bg_color: 188/255,227/255,217/255,1
+                    MDLabel:
+                        md_bg_color: 188/255,227/255,217/255,1
+                        text: "Ajuda na utilização!"
+                        halign: 'center'
+                        font_size: "20sp"
+                        font_name: "Poppins-SemiBold.ttf"
+                        pos_hint: {"center_x":0.5,"center_y":0.9}
+                    
+                    MDLabel:
+                        text: "1• Para descobrir onde fica seu destino, vá na aba de Procurar"
+                        halign: 'center'
+                        font_name: "Poppins-Regular.ttf"
+                        font_size: "14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.8}
+                    MDLabel:
+                        text: "2• Para ver o Mapa completo em 3D, vá na aba de Mapa 3D"
+                        halign: 'center'
+                        font_name: "Poppins-Regular.ttf"
+                        font_size: "14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.7}
+                    MDLabel:
+                        text: "3• Para ver o Mapa completo padronizado, vá na aba de Mapa Padrão"
+                        halign: 'center'
+                        font_name: "Poppins-Regular.ttf"
+                        font_size: "14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.6}
+                    MDLabel:
+                        text: "-------------------------------------"
+                        halign: "center"
+                        font_size: "11sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.55}
+
+                    MDLabel:
+                        text: "Conecte-se conosco através das plataformas abaixo:"
+                        halign: "center"
+                        font_name: "Poppins-Medium.ttf"
+                        font_size: "17sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.45}
+                    MDIcon:
+                        icon: "home"
+                        pos_hint: {"center_x":0.32,"center_y":0.35}
+                    MDLabel:
+                        text:"www.ufsm.br"
+                        halign:"center"
+                        font_name:"Poppins-Regular.ttf"
+                        font_size:"14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.35}
+                    MDIcon:
+                        icon: "instagram"
+                        pos_hint: {"center_x":0.35,"center_y":0.3}
+                    MDLabel:
+                        text:"@ufsm.br"
+                        halign:"center"
+                        font_name:"Poppins-Regular.ttf"
+                        font_size:"14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.3}
+                    MDIcon:
+                        icon: "twitter"
+                        pos_hint: {"center_x":0.3,"center_y":0.25}
+
+                    MDLabel:
+                        text:"@ufsm_oficial"
+                        halign:"center"
+                        font_name:"Poppins-Regular.ttf"
+                        font_size:"14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.25}
+
+                    MDIcon:
+                        icon: "facebook"
+                        pos_hint: {"center_x":0.025,"center_y":0.2}
+
+                    MDLabel:
+                        text:"UFSM- Universidade Federal de Santa Maria"
+                        halign:"center"
+                        font_name:"Poppins-Regular.ttf"
+                        font_size:"14sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.2}
+                    MDLabel:
+                        text: "-------------------------------------"
+                        halign: "center"
+                        font_size: "11sp"
+                        pos_hint: {"center_x":0.5,"center_y":0.15}
+
+
+<MostrandoPredio>:
+    name: "predio"
+    MDFloatLayout:
+        md_bg_color: 188/255,227/255,217/255,1
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "70sp"
+            pos_hint: {"center_x": .1, "center_y": .9}     
+            color: "green" 
+            on_press: app.root.current = 'home'   
+        MDFloatLayout:
+            size_hint: 1, .45
+            pos_hint: {"center_x":.5,"center_y":1}
+            md_bg_color: 255,255,255
+        MDFloatLayout:
+            size_hint: 1, .45
+            pos_hint: {"center_x":.5,"center_y":.5}
+            md_bg_color: 225,255,100
+        MDFloatLayout:
+            size_hint: 1, .45
+            pos_hint: {"center_x":.5,"center_y":.0}
+            md_bg_color: 0,0,0
+
